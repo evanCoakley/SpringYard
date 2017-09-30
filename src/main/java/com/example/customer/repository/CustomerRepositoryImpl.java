@@ -10,12 +10,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private final String INSERT_SQL = "INSERT INTO customer (firstName, lastName, phone, email) VALUES (?,?)";
+    private final String INSERT_SQL = "INSERT INTO customer (firstName, lastName, phone, email) VALUES (?,?,?,?)";
 
     @Override
     public void add(Customer customer) {
@@ -41,7 +42,7 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void update(Customer customer) {
-        jdbcTemplate.update(UPDATE_SQL, customer.getFirstName(), customer.getLastName(), customer.getId());
+        jdbcTemplate.update(UPDATE_SQL, customer.getFirstName(), customer.getLastName(), customer.getId(), customer.getEmail(), customer.getPhone());
     }
 
     private final String DELETE_SQL = "delete from customer where id=?";

@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class CustomerServiceTest extends Customer{
+public class CustomerServiceTest {
 
 
     @Autowired
@@ -22,29 +23,22 @@ public class CustomerServiceTest extends Customer{
     @Test
     public void testAddGet() {
 
-        String firstName = Long.toString(System.currentTimeMillis());
-        String lastName = Long.toString(System.currentTimeMillis());
-        String phone = "512-317-2252";
-        String email = "afiftiesbluesdreamer@hotmail.com";
-
         Customer customer1 = createTestCustomer();
-        customer1.setFirstName(firstName);
-        customer1.setLastName(lastName);
-        customer1.setPhone(phone);
-        customer1.setEmail(email);
-        customerService.add(customer1);
+        Customer customer2 = createTestCustomer();
+        List<Customer> customers = new ArrayList<>();
+        customers.add(customer1);
+        customers.add(customer2);
 
-        List<Customer> customers = customerService.get();
+        customer2.setFirstName(null);
+        try{
+            customerService.add(customers);
+        } catch (Exception e) {
+        }
 
-        Customer customer2 = findInList(customers, firstName, lastName, phone, email);
-        Assert.assertNotNull(customer2);
+        customers = customerService.get();
 
-        Customer customer3 = customerService.getById(customer2.getId());
-        Assert.assertNotNull(customer3);
-        Assert.assertEquals(firstName, customer3.getFirstName());
-        Assert.assertEquals(lastName, customer3.getLastName());
-        Assert.assertEquals(phone, customer3.getPhone());
-        Assert.assertEquals(email, customer3.getEmail());
+        Customer foundCustomer1 = findInList(customers, customer1.getFirstName(), customer1.getLastName());
+        Assert.assertNull("The first customer created should have rolled back", foundCustomer1);
     }
 
 
@@ -61,12 +55,11 @@ public class CustomerServiceTest extends Customer{
     }
 
 
-    static Customer findInList(List<Customer> customers, String first, String last, String phone, String email) {
+    static Customer findInList(List<Customer> customers, String first, String last) {
         // Find the new person in the list
         boolean found = false;
         for (Customer customer : customers) {
-            if (customer.getFirstName().equals(first) && customer.getLastName().equals(last) && customer.getPhone().equals(phone)
-                    && customer.getEmail().equals(email)) {
+            if (customer.getFirstName().equals(first) && customer.getLastName().equals(last)) {
                 return customer;
             }
         }

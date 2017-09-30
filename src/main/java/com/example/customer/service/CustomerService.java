@@ -1,13 +1,14 @@
 package com.example.customer.service;
 
 import com.example.customer.model.Customer;
-import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 
-@Repository
+
 public interface CustomerService {
     void add(Customer customer);
+    void add(List<Customer> customers);
     Customer getById(int id);
     List<Customer> get();
     void update(Customer customer);
