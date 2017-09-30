@@ -1,9 +1,11 @@
 package com.example.customer.service;
 
 import com.example.customer.model.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface CustomerService {
     void add(Customer customer);
     Customer getById(int id);
