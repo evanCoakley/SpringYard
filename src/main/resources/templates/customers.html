@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!--<html xmlns:th="http://www.w3.org/1999/xhtml">-->
+<head>
+    <meta charset="UTF-8">
+    <title>Customers</title>
+</head>
+<body>
+<header>
+    <nav>
+            <a href="/">Home</a>
+            <a href="/view_customer">View Customer</a>
+            <a href="/add_customer">Add A Customer</a>
+
+    </nav>
+</header>
+
+<h1>Customers By ID</h1>
+
+<div th:each="getCustomer :${getCustomer}">
+    <a th:href="${'/view_customer' + getCustomer.id}" th:text="${getCustomer.id}"></a>
+
+</div>
+
+</body>
+</html>
