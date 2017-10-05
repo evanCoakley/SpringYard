@@ -3,7 +3,7 @@ package com.example.customer.model;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name="customer")
 public class Customer {
 
     private int id;
@@ -20,6 +20,7 @@ public class Customer {
         this.email = email;
         this.phone = phone;
     }
+
     public Customer() {
     }
     @Id
@@ -31,7 +32,8 @@ public class Customer {
     public void setId(int id) {
         this.id = id;
     }
-    @Column
+
+    @Column(name ="firstname")
     public String getFirstName() {
         return firstName;
     }
@@ -39,7 +41,8 @@ public class Customer {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    @Column
+
+    @Column(name = "lastname")
     public String getLastName() {
         return lastName;
     }
