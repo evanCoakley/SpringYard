@@ -20,13 +20,14 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public void add(Customer customer) {
-        jdbcTemplate.update(INSERT_SQL, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhone());
+        jdbcTemplate.update(INSERT_SQL, customer.getFirstName(), customer.getLastName(),customer.getPhone(), customer.getEmail());
     }
 
     private final String SELECT_BY_ID_SQL = "select * from customer where id = ?";
 
     @Override
     public Customer getById(int id) {
+
         return jdbcTemplate.queryForObject(SELECT_BY_ID_SQL, new CustomerMapper(), id);
     }
 

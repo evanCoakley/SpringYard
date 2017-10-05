@@ -52,6 +52,8 @@ public class CustomerController {
         Customer getCustomer = customerService.getById(customerId);
         model.addAttribute("customer", getCustomer);
 
+        System.out.println("EMAIL = " + getCustomer.getEmail());
+        System.out.println("PHONE = " + getCustomer.getPhone());
         return "view_customer";
     }
 }
