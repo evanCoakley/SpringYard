@@ -1,5 +1,9 @@
 package com.example.customer.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Customer {
 
     private int id;
@@ -9,9 +13,6 @@ public class Customer {
     private String phone;
 
 
-    public Customer() {
-    }
-
     public Customer(int id, String firstName, String lastName, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
@@ -19,7 +20,10 @@ public class Customer {
         this.email = email;
         this.phone = phone;
     }
-
+    public Customer() {
+    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -27,7 +31,7 @@ public class Customer {
     public void setId(int id) {
         this.id = id;
     }
-
+    @Column
     public String getFirstName() {
         return firstName;
     }
@@ -35,7 +39,7 @@ public class Customer {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    @Column
     public String getLastName() {
         return lastName;
     }
@@ -58,5 +62,20 @@ public class Customer {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        return id == customer.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
