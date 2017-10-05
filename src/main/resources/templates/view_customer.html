@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8"/>
+    <title>View Customer Info</title>
 </head>
 <body>
-<header>
-    <header>
-        <nav>
 
-            <a href="/">Home</a>
-            <a href="/view_customer">View Customer</a>
-            <a href="/add_customer">Add A Customer</a>
+<h1>Customer Information:<span th:text="${customer.firstName + '' + customer.lastName}"></span></h1>
 
-        </nav>
-    </header>
-</header>
-<h1>Welcome!</h1>
+<table>
+    <tr>
+        <th>Customer Id #</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+    </tr>
+
+    <tr>
+        <td th:text="${customer.id}"></td>
+        <td th:text="${customer.phone}"></td>
+        <td th:text="${customer.email}"></td>
+    </tr>
+
+</table>
+
+<a href="/customers">Return to Customer Page</a>
 
 
 </body>

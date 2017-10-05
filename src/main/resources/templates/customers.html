@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-
-<!--<html xmlns:th="http://www.w3.org/1999/xhtml">-->
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Customers</title>
 </head>
 <body>
 <header>
-    <nav>
-            <a href="/">Home</a>
-            <a href="/view_customer">View Customer</a>
-            <a href="/add_customer">Add A Customer</a>
 
-    </nav>
 </header>
 
 <h1>Customers By ID</h1>
 
-<div th:each="getCustomer :${getCustomer}">
-    <a th:href="${'/view_customer' + getCustomer.id}" th:text="${getCustomer.id}"></a>
+<table class="customers">
+    <tr>
+        <th>Customers In System</th>
+    </tr>
+<tbody>
+<tr th:each="customer :${customers}">
 
-</div>
+  <th><span th:text ="${customer.firstName} + ' ' + ${customer.lastName}"> </span></th>
+
+    <td><a th:href="@{/view_customers/} + ${customer.id}">Customer Information</a></td>
+
+</tr>
+</tbody>
+</table>
+
+<a href ="/add_customer">Add A New Customer</a>
 
 </body>
 </html>

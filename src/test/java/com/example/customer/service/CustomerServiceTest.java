@@ -21,7 +21,7 @@ public class CustomerServiceTest {
     CustomerService customerService;
 
     @Test
-    public void testAddGet() {
+    public void testInvalidAdd() {
 
         Customer customer1 = createTestCustomer();
         Customer customer2 = createTestCustomer();
@@ -29,17 +29,36 @@ public class CustomerServiceTest {
         customers.add(customer1);
         customers.add(customer2);
 
+        boolean catchBlockHit = false;
+
         customer2.setFirstName(null);
         try{
             customerService.add(customers);
         } catch (Exception e) {
+            catchBlockHit = true;
         }
 
         customers = customerService.get();
 
         Customer foundCustomer1 = findInList(customers, customer1.getFirstName(), customer1.getLastName());
         Assert.assertNull("The first customer created should have rolled back", foundCustomer1);
+        Assert.assertTrue(catchBlockHit);
     }
+    @Test
+    public void testAddGet(){
+        Customer customer1 = createTestCustomer();
+
+        customerService.add(customer1);
+        List<Customer> customers = customerService.get();
+
+        Customer foundCustomer1 = findInList(customers, customer1.getFirstName(), customer1.getLastName());
+
+        Assert.assertNotNull("The first customer created should have created and found properly", foundCustomer1);
+        Assert.assertEquals("Added and found customer should have the same first name", customer1.getFirstName(), foundCustomer1.getFirstName());
+        Assert.assertEquals("Added and found customer should have the same last name", customer1.getLastName(), foundCustomer1.getLastName());
+;
+    }
+
 
 
     // utils.........
